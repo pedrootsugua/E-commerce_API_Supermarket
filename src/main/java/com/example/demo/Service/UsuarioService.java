@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -39,7 +40,7 @@ public class UsuarioService {
             CredencialModel credencialModel = new CredencialModel();
             credencialModel.setEmail(dto.getEmail());
             credencialModel.setSenha(passwordService.criptografar(dto.getSenha()));
-            credencialModel.setIdUsuario(usuarioSalvo.getId());
+            credencialModel.setUsuarioId(usuarioSalvo);
             credencialRepository.save(credencialModel);
 
             dto.setSenha("");
@@ -47,5 +48,10 @@ public class UsuarioService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ResponseEntity<List<UsuarioModel>> listarUsuarios() {
+        List<UsuarioModel> listaCliente = usuarioRepository.findAll();
+        return new ResponseEntity<>(listaCliente, HttpStatus.OK);
     }
 }

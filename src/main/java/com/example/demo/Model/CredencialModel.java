@@ -1,5 +1,6 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,11 @@ public class CredencialModel {
     private Long id;
     @Column(nullable = false, unique = true)
     private String email;
+    @JsonIgnore
     @Column(nullable = false)
     private String senha;
-    private Long idUsuario;
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "usuarioId")
+    private UsuarioModel usuarioId;
 }
