@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.DTO.CredencialDTO;
 import com.example.demo.DTO.UsuarioCredencialDTO;
 import com.example.demo.Model.CredencialModel;
 import com.example.demo.Model.UsuarioModel;
@@ -46,13 +47,5 @@ public class UsuarioService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public boolean login(String email, String senha) {
-        CredencialModel credencial = credencialRepository.buscaPorEmail(email);
-        if (credencial != null) {
-            return passwordService.verificarSenha(senha, credencial.getSenha());
-        }
-        return false;
     }
 }
