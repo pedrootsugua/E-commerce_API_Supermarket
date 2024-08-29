@@ -1,6 +1,7 @@
 package com.example.demo.Model;
 
 import com.example.demo.DTO.UsuarioCredencialDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,10 +20,12 @@ public class UsuarioModel {
     private Long id;
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String cpf;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String grupo;
+    @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL)
+    private CredencialModel credencialId;
 
     public UsuarioModel(UsuarioCredencialDTO dto){
         this.nome = dto.getNome();
