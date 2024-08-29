@@ -19,7 +19,10 @@ public class LoginService {
     public ResponseEntity<Boolean> entrar(CredencialDTO credencialDTO) {
         CredencialModel credencial = credencialRepository.buscaPorEmail(credencialDTO.getEmail());
         if (credencial != null) {
-            return new ResponseEntity<>(passwordService.verificarSenha(credencialDTO.getSenha(), credencial.getSenha()), HttpStatus.OK);
+            boolean senha = passwordService.verificarSenha(credencialDTO.getSenha(), credencial.getSenha());
+            if (senha) {
+                return new ResponseEntity<>(true, HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
