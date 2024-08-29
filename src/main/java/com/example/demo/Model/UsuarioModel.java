@@ -24,6 +24,8 @@ public class UsuarioModel {
     private String cpf;
     @Column(nullable = false)
     private String grupo;
+    @Column(nullable = false)
+    private boolean ativo;
     @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL)
     private CredencialModel credencialId;
 
@@ -31,5 +33,6 @@ public class UsuarioModel {
         this.nome = dto.getNome();
         this.cpf = dto.getCpf();
         this.grupo = dto.getGrupo();
+        this.ativo = true;
     }
 }
