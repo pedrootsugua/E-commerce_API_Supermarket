@@ -54,4 +54,18 @@ public class UsuarioService {
         List<UsuarioModel> listaCliente = usuarioRepository.findAll();
         return new ResponseEntity<>(listaCliente, HttpStatus.OK);
     }
+
+    public void desativarUsuario(Long id) throws Exception {
+        UsuarioModel usuario = usuarioRepository.findById(id).orElseThrow(
+                () -> new Exception("Usuário não encontrado"));
+        usuario.setAtivo(false);
+        usuarioRepository.save(usuario);
+    }
+
+    public void ativarUsuario(Long id) throws Exception {
+        UsuarioModel usuario = usuarioRepository.findById(id).orElseThrow(
+                () -> new Exception("Usuário não encontrado"));
+        usuario.setAtivo(true);
+        usuarioRepository.save(usuario);
+    }
 }
