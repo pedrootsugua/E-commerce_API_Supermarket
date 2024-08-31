@@ -27,4 +27,14 @@ public class UsuarioController {
     public ResponseEntity<List<UsuarioModel>> listarClientes() {
         return usuarioService.listarUsuarios();
     }
+
+    @PatchMapping("/desativar/{id}")
+    public void desativarUsuario(@PathVariable("id") Long id) throws Exception {
+        usuarioService.desativarUsuario(id);
+    }
+
+    @PatchMapping("/ativar/{id}")
+    public void ativarUsuario(@PathVariable("id") Long id) throws Exception {
+        usuarioService.ativarUsuario(id);
+    }
 }
