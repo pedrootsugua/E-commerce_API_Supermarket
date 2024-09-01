@@ -37,4 +37,15 @@ public class UsuarioController {
     public void ativarUsuario(@PathVariable("id") Long id) throws Exception {
         usuarioService.ativarUsuario(id);
     }
+
+
+    @GetMapping("/consultar/{id}")
+    public ResponseEntity<UsuarioModel> buscarUsuarioPorId(@PathVariable Long id) {
+        return usuarioService.buscarUsuarioPorId(id);
+    }
+
+    @PutMapping("/alterar/{id}")
+    public ResponseEntity<UsuarioModel> alterarUsuario(@PathVariable Long id, @RequestBody UsuarioCredencialDTO dto) {
+        return usuarioService.alterarUsuario(id, dto);
+    }
 }
