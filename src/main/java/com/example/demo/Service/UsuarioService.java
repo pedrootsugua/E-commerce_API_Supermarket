@@ -68,4 +68,28 @@ public class UsuarioService {
         usuario.setAtivo(true);
         usuarioRepository.save(usuario);
     }
+
+    public ResponseEntity<UsuarioModel> buscarUsuarioPorId(Long id) {
+        UsuarioModel usuario = usuarioRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Usuário não encontrado"));
+        return new ResponseEntity<>(usuario, HttpStatus.OK);
+    }
+
+    public ResponseEntity<UsuarioModel> alterarUsuario(Long id, UsuarioCredencialDTO dto) {
+        UsuarioModel usuarioSalvo = usuarioRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Usuário não encontrado"));
+        CredencialModel credencial = credencialRepository.buscaPorEmail(dto.getEmail());
+
+        usuarioSalvo.setNome(dto.getNome());
+        usuarioSalvo.setCpf(dto.getCpf());
+        usuarioSalvo.setGrupo(dto.getGrupo());
+        if (dto.getSenha() != null && !dto.getSenha().trim().isEmpty()) {
+            credencial.setSenha(passwordService.criptografar(dto.getSenha()));
+        }
+
+
+        usuarioRepository.save(usuarioSalvo);
+        credencialRepository.save(credencial);
+        return new ResponseEntity<>(usuarioSalvo, HttpStatus.OK);
+    }
 }
