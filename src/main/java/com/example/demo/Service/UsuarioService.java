@@ -1,6 +1,5 @@
 package com.example.demo.Service;
 
-import com.example.demo.DTO.CredencialDTO;
 import com.example.demo.DTO.UsuarioCredencialDTO;
 import com.example.demo.Model.CredencialModel;
 import com.example.demo.Model.UsuarioModel;
@@ -9,8 +8,6 @@ import com.example.demo.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -55,18 +52,20 @@ public class UsuarioService {
         return new ResponseEntity<>(listaCliente, HttpStatus.OK);
     }
 
-    public void desativarUsuario(Long id) throws Exception {
+    public ResponseEntity<Void> desativarUsuario(Long id) throws Exception {
         UsuarioModel usuario = usuarioRepository.findById(id).orElseThrow(
                 () -> new Exception("Usuário não encontrado"));
         usuario.setAtivo(false);
         usuarioRepository.save(usuario);
+        return ResponseEntity.ok().build();
     }
 
-    public void ativarUsuario(Long id) throws Exception {
+    public ResponseEntity<Void> ativarUsuario(Long id) throws Exception {
         UsuarioModel usuario = usuarioRepository.findById(id).orElseThrow(
                 () -> new Exception("Usuário não encontrado"));
         usuario.setAtivo(true);
         usuarioRepository.save(usuario);
+        return ResponseEntity.ok().build();
     }
 
     public ResponseEntity<UsuarioModel> buscarUsuarioPorId(Long id) {
