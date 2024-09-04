@@ -29,13 +29,13 @@ public class UsuarioController {
     }
 
     @PatchMapping("/desativar/{id}")
-    public void desativarUsuario(@PathVariable("id") Long id) throws Exception {
-        usuarioService.desativarUsuario(id);
+    public ResponseEntity<Void> desativarUsuario(@PathVariable("id") Long id) throws Exception {
+        return usuarioService.desativarUsuario(id);
     }
 
     @PatchMapping("/ativar/{id}")
-    public void ativarUsuario(@PathVariable("id") Long id) throws Exception {
-        usuarioService.ativarUsuario(id);
+    public ResponseEntity<Void> ativarUsuario(@PathVariable("id") Long id) throws Exception {
+        return usuarioService.ativarUsuario(id);
     }
 
 
