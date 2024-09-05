@@ -1,8 +1,11 @@
 package com.example.demo.Service;
 
+import com.example.demo.DTO.AutenticacaoLoginDTO;
 import com.example.demo.DTO.CredencialDTO;
 import com.example.demo.Model.CredencialModel;
+import com.example.demo.Model.UsuarioModel;
 import com.example.demo.Repository.CredencialRepository;
+import com.example.demo.Repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +21,10 @@ import static org.mockito.Mockito.when;
 public class LoginServiceTest {
 
     @Mock
-    private CredencialRepository credencialRepositoryTest;
+    private CredencialRepository credencialRepository;
+
+    @Mock
+    private UsuarioRepository usuarioRepository;
 
     @Mock
     private PasswordService passwordService;
@@ -41,13 +47,24 @@ public class LoginServiceTest {
         credencialModel.setEmail("test@example.com");
         credencialModel.setSenha("hashedPassword");
 
-        when(credencialRepositoryTest.buscaPorEmail(anyString())).thenReturn(credencialModel);
-        when(passwordService.verificarSenha(anyString(), anyString())).thenReturn(true);
+        UsuarioModel usuarioModel = new UsuarioModel();
+        usuarioModel.setId(1L);
+        usuarioModel.setNome("Test User");
+        usuarioModel.setGrupo("Admin");
+        usuarioModel.setAtivo(true);
 
-        ResponseEntity<Boolean> response = loginService.entrar(credencialDTO);
+        when(credencialRepository.buscaPorEmail(anyString())).thenReturn(credencialModel);
+        when(passwordService.verificarSenha(anyString(), anyString())).thenReturn(true);
+        when(usuarioRepository.buscarPorId(credencialModel.getId())).thenReturn(usuarioModel);
+
+        ResponseEntity<AutenticacaoLoginDTO> response = loginService.entrar(credencialDTO);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(true, response.getBody());
+        assertEquals(true, response.getBody().isAutenticado());
+        assertEquals(1L, response.getBody().getId());
+        assertEquals("Test User", response.getBody().getNome());
+        assertEquals("Admin", response.getBody().getGrupo());
+        assertEquals(true, response.getBody().isAtivo());
     }
 
     @Test
@@ -56,11 +73,10 @@ public class LoginServiceTest {
         credencialDTO.setEmail("test@example.com");
         credencialDTO.setSenha("password");
 
-        when(credencialRepositoryTest.buscaPorEmail(anyString())).thenReturn(null);
+        when(credencialRepository.buscaPorEmail(anyString())).thenReturn(null);
 
-        ResponseEntity<Boolean> response = loginService.entrar(credencialDTO);
+        ResponseEntity<AutenticacaoLoginDTO> response = loginService.entrar(credencialDTO);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals(false, response.getBody());
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
     }
 }
