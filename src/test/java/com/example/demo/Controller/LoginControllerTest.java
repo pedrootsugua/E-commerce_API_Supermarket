@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.DTO.AutenticacaoLoginDTO;
 import com.example.demo.DTO.CredencialDTO;
 import com.example.demo.Service.LoginService;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,12 +36,14 @@ public class LoginControllerTest {
         credencialDTO.setEmail("test@example.com");
         credencialDTO.setSenha("password");
 
-        when(loginService.entrar(any(CredencialDTO.class))).thenReturn(new ResponseEntity<>(true, HttpStatus.OK));
+        AutenticacaoLoginDTO autenticacaoLoginDTO = new AutenticacaoLoginDTO(true, 1L, "Test User", "Admin", true);
 
-        ResponseEntity<Boolean> response = loginController.acessarUsuario(credencialDTO);
+        when(loginService.entrar(any(CredencialDTO.class))).thenReturn(new ResponseEntity<>(autenticacaoLoginDTO, HttpStatus.OK));
+
+        ResponseEntity<AutenticacaoLoginDTO> response = loginController.acessarUsuario(credencialDTO);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(true, response.getBody());
+        assertEquals(autenticacaoLoginDTO, response.getBody());
     }
 
     @Test
@@ -49,11 +52,10 @@ public class LoginControllerTest {
         credencialDTO.setEmail("test@example.com");
         credencialDTO.setSenha("wrongpassword");
 
-        when(loginService.entrar(any(CredencialDTO.class))).thenReturn(new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED));
+        when(loginService.entrar(any(CredencialDTO.class))).thenReturn(new ResponseEntity<>(HttpStatus.FORBIDDEN));
 
-        ResponseEntity<Boolean> response = loginController.acessarUsuario(credencialDTO);
+        ResponseEntity<AutenticacaoLoginDTO> response = loginController.acessarUsuario(credencialDTO);
 
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals(false, response.getBody());
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
     }
 }
