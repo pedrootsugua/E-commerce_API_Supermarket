@@ -53,9 +53,11 @@ public class LoginServiceTest {
         usuarioModel.setGrupo("Admin");
         usuarioModel.setAtivo(true);
 
+        credencialModel.setUsuarioId(usuarioModel); // Definindo usuarioId
+
         when(credencialRepository.buscaPorEmail(anyString())).thenReturn(credencialModel);
         when(passwordService.verificarSenha(anyString(), anyString())).thenReturn(true);
-        when(usuarioRepository.buscarPorId(credencialModel.getId())).thenReturn(usuarioModel);
+        when(usuarioRepository.buscarPorId(usuarioModel.getId())).thenReturn(usuarioModel);
 
         ResponseEntity<AutenticacaoLoginDTO> response = loginService.entrar(credencialDTO);
 
