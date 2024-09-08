@@ -27,7 +27,7 @@ public class LoginService {
         if (credencial != null) {
             boolean senhaCorreta = passwordService.verificarSenha(credencialDTO.getSenha(), credencial.getSenha());
             if (senhaCorreta) {
-                UsuarioModel usuario = usuarioRepository.buscarPorId(credencial.getId());
+                UsuarioModel usuario = usuarioRepository.buscarPorId(credencial.getUsuarioId().getId());
                 return new ResponseEntity<>(new AutenticacaoLoginDTO(true, usuario.getId(), usuario.getNome(), usuario.getGrupo(), usuario.isAtivo()), HttpStatus.OK);
             }
         }
