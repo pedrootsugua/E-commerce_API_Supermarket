@@ -1,12 +1,12 @@
 package com.example.demo.Model;
 
 import com.example.demo.DTO.UsuarioCredencialDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +20,7 @@ public class UsuarioModel {
     private Long id;
     @Column(nullable = false)
     private String nome;
+    @CPF
     @Column(nullable = false)
     private String cpf;
     @Column(nullable = false)
