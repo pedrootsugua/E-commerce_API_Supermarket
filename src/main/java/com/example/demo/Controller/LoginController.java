@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.DTO.AutenticacaoLoginDTO;
 import com.example.demo.DTO.CredencialDTO;
 import com.example.demo.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/entrar")
-    public ResponseEntity<Boolean> acessarUsuario (@RequestBody CredencialDTO dto) throws ParseException {
+    public ResponseEntity<AutenticacaoLoginDTO> acessarUsuario (@RequestBody CredencialDTO dto) throws ParseException {
         return loginService.entrar(dto);
     }
 }
