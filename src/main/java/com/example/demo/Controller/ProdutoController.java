@@ -22,6 +22,7 @@ public class ProdutoController {
             @RequestPart("produto") ProdutoDTO dto,
             @RequestPart("imagemPrincipal") MultipartFile imagemPrincipal,
             @RequestPart("imagens") List<MultipartFile> imagens) throws Exception {
+        dto.setImagemPrincipal(imagemPrincipal);
         dto.setImagens(imagens);
         return produtoService.cadastrarProduto(dto);
     }

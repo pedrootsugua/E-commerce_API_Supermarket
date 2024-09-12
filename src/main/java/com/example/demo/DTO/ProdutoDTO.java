@@ -21,6 +21,7 @@ public class ProdutoDTO {
     private int quantidade;
     private String categoria;
     private String marca;
+    @JsonIgnore
     private MultipartFile imagemPrincipal;
     @JsonIgnore
     private List<MultipartFile> imagens;
