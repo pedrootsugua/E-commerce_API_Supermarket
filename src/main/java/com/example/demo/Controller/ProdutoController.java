@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.DTO.ProdutoAlterarDTO;
 import com.example.demo.DTO.ProdutoDTO;
 import com.example.demo.DTO.ProdutoRetornoDTO;
 import com.example.demo.Service.ProdutoService;
@@ -34,5 +35,10 @@ public class ProdutoController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return produtoService.listarProdutos(page, size);
+    }
+    @GetMapping("/buscaID")
+    public ResponseEntity<ProdutoAlterarDTO> listarProdutos(
+            @RequestParam("id") Long id){
+        return produtoService.buscarProduto(id);
     }
 }

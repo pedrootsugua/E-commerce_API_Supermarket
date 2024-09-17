@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.BlobsAzure.BlobStorageService;
+import com.example.demo.DTO.ProdutoAlterarDTO;
 import com.example.demo.DTO.ProdutoDTO;
 import com.example.demo.DTO.ProdutoRetornoDTO;
 import com.example.demo.Model.ProdutoModel;
@@ -89,5 +90,15 @@ public class ProdutoService {
         response.put("totalPages", produtoPage.getTotalPages());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<ProdutoAlterarDTO> buscarProduto(Long id) {
+
+        ProdutoModel produtoModel = produtoRepository.findById(id).orElse(null);
+        if (produtoModel == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ProdutoAlterarDTO produtoAlterarDTO = new ProdutoAlterarDTO(produtoModel);
+        return new ResponseEntity<>(produtoAlterarDTO, HttpStatus.OK);
     }
 }
