@@ -36,8 +36,10 @@ public class ProdutoAlterarDTO {
         for (URLImagensModel urlImagensModel : produtoModel.getUrlImagensModels()) {
             if (urlImagensModel.getPadrao()) {
                 this.imagemPrincipal = urlImagensModel.getUrl();
-                urlImagensModels.remove(urlImagensModel);
             }
         }
-        this.imagens = urlImagensModels.stream().map(URLImagensModel::getUrl).toList();    }
+        this.imagens = urlImagensModels.stream()
+                .filter(urlImagensModel -> !urlImagensModel.getPadrao())
+                .map(URLImagensModel::getUrl)
+                .toList();    }
 }
