@@ -2,7 +2,6 @@ package com.example.demo.Controller;
 
 import com.example.demo.DTO.ProdutoAlterarDTO;
 import com.example.demo.DTO.ProdutoDTO;
-import com.example.demo.DTO.ProdutoRetornoDTO;
 import com.example.demo.Service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +35,18 @@ public class ProdutoController {
             @RequestParam(defaultValue = "10") int size) {
         return produtoService.listarProdutos(page, size);
     }
+
     @GetMapping("/buscaID")
-    public ResponseEntity<ProdutoAlterarDTO> listarProdutos(
-            @RequestParam("id") Long id){
+    public ResponseEntity<ProdutoAlterarDTO> buscarProdutoPorId(
+            @RequestParam("id") Long id) {
         return produtoService.buscarProduto(id);
+    }
+
+    @GetMapping("/buscaNome")
+    public ResponseEntity<Map<String, Object>> buscarProdutoPorNome(
+            @RequestParam("nome") String nome,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return produtoService.buscarProdutoPorNome(nome, page, size);
     }
 }

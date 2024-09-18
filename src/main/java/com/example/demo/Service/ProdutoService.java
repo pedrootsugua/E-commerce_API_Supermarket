@@ -101,4 +101,24 @@ public class ProdutoService {
         ProdutoAlterarDTO produtoAlterarDTO = new ProdutoAlterarDTO(produtoModel);
         return new ResponseEntity<>(produtoAlterarDTO, HttpStatus.OK);
     }
+
+    public ResponseEntity<Map<String, Object>> buscarProdutoPorNome(String nome, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+        Page<ProdutoModel> produtoPage = produtoRepository.buscaPorNome(nome, pageable);
+        List<ProdutoRetornoDTO> produtos = produtoPage.stream()
+                .map(produto -> new ProdutoRetornoDTO(
+                        produto.getId(),
+                        produto.getNomeProduto(),
+                        produto.getPreco(),
+                        produto.getQuantidade(),
+                        produto.getAtivo(),
+                        produto.getUrlImagensModels()
+                ))
+                .collect(Collectors.toList());
+        Map<String, Object> response = new HashMap<>();
+        response.put("produtos", produtos);
+        response.put("totalPages", produtoPage.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
