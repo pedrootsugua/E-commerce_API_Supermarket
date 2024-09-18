@@ -105,6 +105,9 @@ public class ProdutoService {
     public ResponseEntity<Map<String, Object>> buscarProdutoPorNome(String nome, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<ProdutoModel> produtoPage = produtoRepository.buscaPorNome(nome, pageable);
+        if (produtoPage.getContent().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         List<ProdutoRetornoDTO> produtos = produtoPage.stream()
                 .map(produto -> new ProdutoRetornoDTO(
                         produto.getId(),
