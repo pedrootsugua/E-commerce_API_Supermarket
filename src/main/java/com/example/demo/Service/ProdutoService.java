@@ -52,8 +52,16 @@ public class ProdutoService {
         }
 
         // Salvando as imagens adicionais
-        for (MultipartFile imagem : dto.getImagens()) {
-            saveImage(imagem, produtoModel, false);
+        if (dto.getImagens() != null && !dto.getImagens().isEmpty()) {
+            for (MultipartFile imagem : dto.getImagens()) {
+                if (imagem != null && !imagem.isEmpty()) {
+                    saveImage(imagem, produtoModel,false);
+                } else {
+                    logger.warning("Imagem adicional fornecida está vazia ou nula");
+                }
+            }
+        } else {
+            logger.info("Nenhuma imagem adicional fornecida");
         }
 
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
