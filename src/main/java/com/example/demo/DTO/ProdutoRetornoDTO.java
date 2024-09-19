@@ -17,6 +17,7 @@ public class ProdutoRetornoDTO {
     private int quantidade;
     private Boolean ativo;
     private String urlImagemPrincipal;
+    private double avaliacao;
 
     public ProdutoRetornoDTO(Long id, String nomeProduto, double preco, int quantidade, Boolean ativo, List<URLImagensModel> urlImagensModels) {
         this.id = id;

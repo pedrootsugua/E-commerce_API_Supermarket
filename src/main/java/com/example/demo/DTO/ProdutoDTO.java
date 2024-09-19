@@ -20,6 +20,7 @@ public class ProdutoDTO {
     private int quantidade;
     private String categoria;
     private String marca;
+    private double avaliacao;
     @JsonIgnore
     private MultipartFile imagemPrincipal;
     @JsonIgnore
