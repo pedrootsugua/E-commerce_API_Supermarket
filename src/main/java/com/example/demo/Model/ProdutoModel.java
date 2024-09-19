@@ -50,7 +50,7 @@ public class ProdutoModel {
         this.categoria = dto.getCategoria();
         this.marca = dto.getMarca();
         this.ativo = true;
-        this.avaliacao = 0.0;
+        this.avaliacao = dto.getAvaliacao();
 
 
     }
