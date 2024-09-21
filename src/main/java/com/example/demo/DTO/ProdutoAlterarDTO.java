@@ -22,6 +22,7 @@ public class ProdutoAlterarDTO {
     private int quantidade;
     private String categoria;
     private String marca;
+    private Double avaliacao;
     private String imagemPrincipal;
     private List<String> imagens;
 
@@ -32,6 +33,7 @@ public class ProdutoAlterarDTO {
         this.quantidade = produtoModel.getQuantidade();
         this.categoria = produtoModel.getCategoria();
         this.marca = produtoModel.getMarca();
+        this.avaliacao = produtoModel.getAvaliacao();
         List<URLImagensModel> urlImagensModels = produtoModel.getUrlImagensModels();
         for (URLImagensModel urlImagensModel : produtoModel.getUrlImagensModels()) {
             if (urlImagensModel.getPadrao()) {
