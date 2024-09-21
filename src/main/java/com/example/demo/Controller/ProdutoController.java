@@ -1,7 +1,10 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DTO.ProdutoAlterarDTO;
+import com.example.demo.DTO.ProdutoAlterarRequestDTO;
+import com.example.demo.DTO.ProdutoAlterarResponseDTO;
 import com.example.demo.DTO.ProdutoDTO;
+import com.example.demo.DTO.UsuarioCredencialDTO;
+import com.example.demo.Model.UsuarioModel;
 import com.example.demo.Service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +26,7 @@ public class ProdutoController {
     public ResponseEntity<ProdutoDTO> cadastrarProduto(
             @RequestPart("produto") ProdutoDTO dto,
             @RequestPart("imagemPrincipal") MultipartFile imagemPrincipal,
-            @RequestPart("imagens") List<MultipartFile> imagens) throws Exception {
+            @RequestPart(value = "imagens", required = false) List<MultipartFile> imagens) throws Exception {
         dto.setImagemPrincipal(imagemPrincipal);
         dto.setImagens(imagens);
         return produtoService.cadastrarProduto(dto);
@@ -37,7 +40,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/buscaID")
-    public ResponseEntity<ProdutoAlterarDTO> buscarProdutoPorId(
+    public ResponseEntity<ProdutoAlterarResponseDTO> buscarProdutoPorId(
             @RequestParam("id") Long id) {
         return produtoService.buscarProduto(id);
     }
@@ -48,5 +51,10 @@ public class ProdutoController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return produtoService.buscarProdutoPorNome(nome, page, size);
+    }
+
+    @PutMapping("/alterar/{id}")
+    public ResponseEntity<ProdutoAlterarResponseDTO> alterarProduto(@PathVariable Long id, @RequestBody ProdutoAlterarRequestDTO dto) throws Exception {
+        return produtoService.alterarProduto(id, dto);
     }
 }

@@ -11,9 +11,8 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class ProdutoDTO {
+@Getter @Setter
+public class ProdutoAlterarRequestDTO {
     private String nomeProduto;
     private String descricao;
     private double preco;
@@ -24,6 +23,7 @@ public class ProdutoDTO {
     @JsonIgnore
     private MultipartFile imagemPrincipal;
     @JsonIgnore
-    private List<MultipartFile> imagens;
+    private List<MultipartFile> imagensNovas;
+    private List<String> urlImagensExcluidas;
 
 }
