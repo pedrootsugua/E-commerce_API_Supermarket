@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter @Setter
 public class ProdutoAlterarRequestDTO {
+    private Long id;
     private String nomeProduto;
     private String descricao;
     private double preco;

@@ -120,8 +120,8 @@ public class ProdutoService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<ProdutoAlterarResponseDTO> alterarProduto(Long id, ProdutoAlterarRequestDTO dto) throws Exception {
-        ProdutoModel produtoSalvo = produtoRepository.findById(id).orElseThrow(
+    public ResponseEntity<ProdutoAlterarResponseDTO> alterarProduto(ProdutoAlterarRequestDTO dto) throws Exception {
+        ProdutoModel produtoSalvo = produtoRepository.findById(dto.getId()).orElseThrow(
                 () -> new RuntimeException("Produto não encontrado!"));
         produtoSalvo.setNomeProduto(dto.getNomeProduto());
         produtoSalvo.setDescricao(dto.getDescricao());
@@ -131,14 +131,16 @@ public class ProdutoService {
         produtoSalvo.setMarca(dto.getMarca());
         produtoSalvo.setAvaliacao(dto.getAvaliacao());
         produtoRepository.save(produtoSalvo);
-        for (String url : dto.getUrlImagensExcluidas()){
-            URLImagensModel imagemSalva = urlImagensRepository.findByUrl(url);
-            urlImagensRepository.delete(imagemSalva);
-            blobStorageService.deleteImage(url);
+        if (!dto.getUrlImagensExcluidas().isEmpty()) {
+            for (String url : dto.getUrlImagensExcluidas()){
+                URLImagensModel imagemSalva = urlImagensRepository.findByUrl(url);
+                urlImagensRepository.delete(imagemSalva);
+                blobStorageService.deleteImage(url);
+            }
         }
         if (dto.getImagemPrincipal() != null) {
             try {
-                URLImagensModel imagemPrincipal = urlImagensRepository.findPadrao(id);
+                URLImagensModel imagemPrincipal = urlImagensRepository.findPadrao(dto.getId());
                 urlImagensRepository.delete(imagemPrincipal);
                 saveImage(dto.getImagemPrincipal(), produtoSalvo, true);
             } catch (Exception e) {
@@ -157,7 +159,7 @@ public class ProdutoService {
             logger.info("Nenhuma imagem adicional fornecida");
         }
 
-        ProdutoModel produtoAtualizado = produtoRepository.findById(id).orElseThrow(
+        ProdutoModel produtoAtualizado = produtoRepository.findById(dto.getId()).orElseThrow(
                 () -> new Exception("Produto não encontrado"));
         ProdutoAlterarResponseDTO produtoAlterado = new ProdutoAlterarResponseDTO(produtoAtualizado);
 
