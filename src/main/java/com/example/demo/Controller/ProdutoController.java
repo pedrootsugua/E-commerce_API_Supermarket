@@ -53,8 +53,13 @@ public class ProdutoController {
         return produtoService.buscarProdutoPorNome(nome, page, size);
     }
 
-    @PutMapping("/alterar/{id}")
-    public ResponseEntity<ProdutoAlterarResponseDTO> alterarProduto(@PathVariable Long id, @RequestBody ProdutoAlterarRequestDTO dto) throws Exception {
-        return produtoService.alterarProduto(id, dto);
+    @PutMapping("/alterar")
+    public ResponseEntity<ProdutoAlterarResponseDTO> alterarProduto(
+            @RequestPart ProdutoAlterarRequestDTO produto,
+            @RequestPart(value = "imagemPrincipal", required = false) MultipartFile imagemPrincipal,
+            @RequestPart(value = "imagensNovas", required = false) List<MultipartFile> imagensNovas) throws Exception {
+        produto.setImagemPrincipal(imagemPrincipal);
+        produto.setImagensNovas(imagensNovas);
+        return produtoService.alterarProduto(produto);
     }
 }
