@@ -27,5 +27,16 @@ public class BlobStorageService {
 
         return blobClient.getBlobUrl();
     }
+
+    public void deleteImage(String imageUrl) {
+        String blobName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+        BlobClient blobClient = new BlobClientBuilder()
+                .connectionString(connectionString)
+                .containerName(containerName)
+                .blobName(blobName)
+                .buildClient();
+
+        blobClient.delete();
+    }
 }
 

@@ -2,12 +2,10 @@ package com.example.demo.DTO;
 
 import com.example.demo.Model.ProdutoModel;
 import com.example.demo.Model.URLImagensModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ProdutoAlterarDTO {
+public class ProdutoAlterarResponseDTO {
     private String nomeProduto;
     private String descricao;
     private double preco;
@@ -26,7 +24,7 @@ public class ProdutoAlterarDTO {
     private String imagemPrincipal;
     private List<String> imagens;
 
-    public ProdutoAlterarDTO(ProdutoModel produtoModel){
+    public ProdutoAlterarResponseDTO(ProdutoModel produtoModel){
         this.nomeProduto = produtoModel.getNomeProduto();
         this.descricao = produtoModel.getDescricao();
         this.preco = produtoModel.getPreco();
