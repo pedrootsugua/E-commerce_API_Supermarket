@@ -38,7 +38,6 @@ public class UsuarioController {
         return usuarioService.ativarUsuario(id);
     }
 
-
     @GetMapping("/consultar/{id}")
     public ResponseEntity<UsuarioModel> buscarUsuarioPorId(@PathVariable Long id) {
         return usuarioService.buscarUsuarioPorId(id);
