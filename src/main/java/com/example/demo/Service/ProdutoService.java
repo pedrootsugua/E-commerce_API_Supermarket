@@ -133,7 +133,7 @@ public class ProdutoService {
         produtoRepository.save(produtoSalvo);
         if (!dto.getUrlImagensExcluidas().isEmpty()) {
             for (String url : dto.getUrlImagensExcluidas()){
-                URLImagensModel imagemSalva = urlImagensRepository.findByUrl(url);
+                URLImagensModel imagemSalva = urlImagensRepository.findByUrl(url, dto.getId());
                 urlImagensRepository.delete(imagemSalva);
                 blobStorageService.deleteImage(url);
             }

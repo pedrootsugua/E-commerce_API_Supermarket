@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface URLImagensRepository extends JpaRepository<URLImagensModel, Long> {
-    URLImagensModel findByUrl(String url);
+    @Query("SELECT u FROM URLImagensModel u WHERE u.url = :url AND u.produtoId.id = :produtoId")
+    URLImagensModel findByUrl(String url, Long produtoId);
     @Query("SELECT u FROM URLImagensModel u WHERE u.padrao = true AND u.produtoId.id = :produtoId")
     URLImagensModel findPadrao(Long produtoId);
 }
