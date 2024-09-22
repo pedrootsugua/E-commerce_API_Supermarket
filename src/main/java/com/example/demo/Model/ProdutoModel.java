@@ -1,6 +1,7 @@
 package com.example.demo.Model;
 
 import com.example.demo.DTO.ProdutoDTO;
+import com.example.demo.Exception.AvaliacaoInvalidaException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -51,8 +52,6 @@ public class ProdutoModel {
         this.marca = dto.getMarca();
         this.ativo = true;
         this.avaliacao = dto.getAvaliacao();
-
-
     }
     public void setPreco(double preco) {
         this.preco = arredondarParaDuasCasasDecimais(preco);
@@ -66,7 +65,7 @@ public class ProdutoModel {
 
     public void setAvaliacao(Double avaliacao) {
         if (avaliacao < 1 || avaliacao > 5 || (avaliacao * 10) % 5 != 0) {
-            throw new IllegalArgumentException("Avaliação deve estar entre 1 e 5 e variar de 0,5 em 0,5.");
+            throw new AvaliacaoInvalidaException("Avaliação deve estar entre 1 e 5 e variar de 0,5 em 0,5.");
         }
         this.avaliacao = avaliacao;
     }
