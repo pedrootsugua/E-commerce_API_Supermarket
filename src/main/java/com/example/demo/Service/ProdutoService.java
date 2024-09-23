@@ -178,4 +178,20 @@ public class ProdutoService {
             logger.warning("Imagem fornecida está vazia ou nula");
         }
     }
+
+    public ResponseEntity<Void> desativarProduto (Long id) throws Exception {
+        ProdutoModel produto = produtoRepository.findById(id).orElseThrow(
+                () -> new Exception("Produto não encontrado"));
+        produto.setAtivo(false);
+        produtoRepository.save(produto);
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<Void> ativarProduto (Long id) throws Exception {
+        ProdutoModel produto = produtoRepository.findById(id).orElseThrow(
+                () -> new Exception("Produto não encontrado"));
+        produto.setAtivo(true);
+        produtoRepository.save(produto);
+        return ResponseEntity.ok().build();
+    }
 }
