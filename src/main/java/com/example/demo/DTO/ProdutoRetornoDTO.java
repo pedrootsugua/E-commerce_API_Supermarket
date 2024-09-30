@@ -19,12 +19,13 @@ public class ProdutoRetornoDTO {
     private String urlImagemPrincipal;
     private double avaliacao;
 
-    public ProdutoRetornoDTO(Long id, String nomeProduto, double preco, int quantidade, Boolean ativo, List<URLImagensModel> urlImagensModels) {
+    public ProdutoRetornoDTO(Long id, String nomeProduto, double preco, int quantidade, Boolean ativo, double avaliacao, List<URLImagensModel> urlImagensModels) {
         this.id = id;
         this.nomeProduto = nomeProduto;
         this.preco = preco;
         this.quantidade = quantidade;
         this.ativo = ativo;
+        this.avaliacao = avaliacao;
         for (URLImagensModel urlImagensModel : urlImagensModels) {
             if (urlImagensModel.getPadrao()) {
                 this.urlImagemPrincipal = urlImagensModel.getUrl();

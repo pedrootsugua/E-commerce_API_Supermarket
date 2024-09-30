@@ -77,6 +77,7 @@ public class ProdutoService {
                         produto.getPreco(),
                         produto.getQuantidade(),
                         produto.getAtivo(),
+                        produto.getAvaliacao(),
                         produto.getUrlImagensModels()
                 ))
                 .collect(Collectors.toList());
@@ -110,6 +111,7 @@ public class ProdutoService {
                         produto.getPreco(),
                         produto.getQuantidade(),
                         produto.getAtivo(),
+                        produto.getAvaliacao(),
                         produto.getUrlImagensModels()
                 ))
                 .collect(Collectors.toList());
