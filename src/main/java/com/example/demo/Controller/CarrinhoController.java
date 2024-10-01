@@ -1,7 +1,7 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DTO.CarrinhoAdicionarRequestDTO;
-import com.example.demo.DTO.CarrinhoAdicionarResponseDTO;
+import com.example.demo.DTO.CarrinhoBuscarNLRequestDTO;
+import com.example.demo.DTO.CarrinhoBuscarNLResponseDTO;
 import com.example.demo.Service.CarrinhoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,8 @@ public class CarrinhoController {
     @Autowired
     private CarrinhoService carrinhoService;
 
-    @PostMapping("/adicionar")
-    public ResponseEntity<CarrinhoAdicionarResponseDTO> adicionarItemCarrinho(@RequestBody CarrinhoAdicionarRequestDTO dto) throws Exception {
-        return carrinhoService.adicionarCarrinho(dto);
+    @GetMapping("/buscarCarrinhoNL")
+    public ResponseEntity<CarrinhoBuscarNLResponseDTO> buscarProdutosCarrinhoNL(@RequestBody CarrinhoBuscarNLRequestDTO dto) throws Exception {
+        return carrinhoService.buscarCarrinhoNL(dto);
     }
 }
