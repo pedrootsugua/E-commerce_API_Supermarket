@@ -15,7 +15,7 @@ public class CarrinhoController {
     @Autowired
     private CarrinhoService carrinhoService;
 
-    @GetMapping("/buscarCarrinhoNL")
+    @PostMapping("/buscarCarrinhoNL")
     public ResponseEntity<CarrinhoBuscarNLResponseDTO> buscarProdutosCarrinhoNL(@RequestBody CarrinhoBuscarNLRequestDTO dto) throws Exception {
         return carrinhoService.buscarCarrinhoNL(dto);
     }

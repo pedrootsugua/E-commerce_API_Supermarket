@@ -12,6 +12,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProdutoQuantidadeDTO {
-    private ProdutoModel produto;
+    private ProdutoRetornoDTO produto;
     private Integer quantidade;
 }
