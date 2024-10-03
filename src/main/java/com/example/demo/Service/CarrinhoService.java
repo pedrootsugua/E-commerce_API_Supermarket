@@ -4,6 +4,7 @@ package com.example.demo.Service;
 import com.example.demo.DTO.CarrinhoBuscarNLRequestDTO;
 import com.example.demo.DTO.CarrinhoBuscarNLResponseDTO;
 import com.example.demo.DTO.ProdutoQuantidadeDTO;
+import com.example.demo.DTO.ProdutoRetornoDTO;
 import com.example.demo.Model.ProdutoModel;
 import com.example.demo.Repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,19 @@ public class CarrinhoService {
         Map<String, Integer> elementCountMap = countOccurrences(dto.getListaIds());
         List<ProdutoModel> produtos = produtoRepository.findByIdIn(new ArrayList<>(elementCountMap.keySet()));
 
-        List<ProdutoQuantidadeDTO> produtosQuantidade = produtos.stream()
+        List<ProdutoRetornoDTO> produtosRetorno = produtos.stream()
+                .map(produto -> new ProdutoRetornoDTO(
+                        produto.getId(),
+                        produto.getNomeProduto(),
+                        produto.getPreco(),
+                        produto.getQuantidade(),
+                        produto.getAtivo(),
+                        produto.getAvaliacao(),
+                        produto.getCategoria(),
+                        produto.getUrlImagensModels()
+                ))
+                .toList();
+        List<ProdutoQuantidadeDTO> produtosQuantidade = produtosRetorno.stream()
                 .map(produto -> new ProdutoQuantidadeDTO(produto, elementCountMap.get(produto.getId().toString())))
                 .collect(Collectors.toList());
 
