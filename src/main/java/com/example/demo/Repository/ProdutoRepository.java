@@ -13,4 +13,8 @@ import java.util.List;
 public interface ProdutoRepository extends JpaRepository<ProdutoModel, Long> {
     @Query("SELECT p FROM ProdutoModel p WHERE p.nomeProduto LIKE %?1%")
     Page<ProdutoModel> buscaPorNome(String nomeProduto, Pageable pageable);
+
+    List<ProdutoModel> findByIdIn(List<String> ids);
+
+    List<ProdutoModel> findByAtivo(boolean b);
 }

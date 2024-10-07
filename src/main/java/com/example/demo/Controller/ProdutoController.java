@@ -62,4 +62,19 @@ public class ProdutoController {
         produto.setImagensNovas(imagensNovas);
         return produtoService.alterarProduto(produto);
     }
+
+    @PatchMapping("/desativar/{id}")
+    public ResponseEntity<Void> desativarProduto (@PathVariable("id") Long id) throws Exception {
+        return produtoService.desativarProduto(id);
+    }
+
+    @PatchMapping("/ativar/{id}")
+    public ResponseEntity<Void> ativarProduto (@PathVariable("id") Long id) throws Exception {
+        return produtoService.ativarProduto(id);
+    }
+
+    @GetMapping("/listagemAtivos")
+    public ResponseEntity<Map<String, Object>> listarProdutosAtivos() {
+        return produtoService.listarProdutosAtivos();
+    }
 }

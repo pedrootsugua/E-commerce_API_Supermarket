@@ -77,6 +77,8 @@ public class ProdutoService {
                         produto.getPreco(),
                         produto.getQuantidade(),
                         produto.getAtivo(),
+                        produto.getAvaliacao(),
+                        produto.getCategoria(),
                         produto.getUrlImagensModels()
                 ))
                 .collect(Collectors.toList());
@@ -110,6 +112,8 @@ public class ProdutoService {
                         produto.getPreco(),
                         produto.getQuantidade(),
                         produto.getAtivo(),
+                        produto.getAvaliacao(),
+                        produto.getCategoria(),
                         produto.getUrlImagensModels()
                 ))
                 .collect(Collectors.toList());
@@ -177,5 +181,44 @@ public class ProdutoService {
         } else {
             logger.warning("Imagem fornecida está vazia ou nula");
         }
+    }
+
+    public ResponseEntity<Void> desativarProduto (Long id) throws Exception {
+        ProdutoModel produto = produtoRepository.findById(id).orElseThrow(
+                () -> new Exception("Produto não encontrado"));
+        produto.setAtivo(false);
+        produtoRepository.save(produto);
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<Void> ativarProduto (Long id) throws Exception {
+        ProdutoModel produto = produtoRepository.findById(id).orElseThrow(
+                () -> new Exception("Produto não encontrado"));
+        produto.setAtivo(true);
+        produtoRepository.save(produto);
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<Map<String, Object>> listarProdutosAtivos() {
+        List<ProdutoModel> produtos = produtoRepository.findByAtivo(true);
+        if (produtos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<ProdutoRetornoDTO> produtosRetorno = produtos.stream()
+                .map(produto -> new ProdutoRetornoDTO(
+                        produto.getId(),
+                        produto.getNomeProduto(),
+                        produto.getPreco(),
+                        produto.getQuantidade(),
+                        produto.getAtivo(),
+                        produto.getAvaliacao(),
+                        produto.getCategoria(),
+                        produto.getUrlImagensModels()
+                ))
+                .collect(Collectors.toList());
+        Map<String, Object> response = new HashMap<>();
+        response.put("produtos", produtosRetorno);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
