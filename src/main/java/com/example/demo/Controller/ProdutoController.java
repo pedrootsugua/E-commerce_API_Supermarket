@@ -72,4 +72,9 @@ public class ProdutoController {
     public ResponseEntity<Void> ativarProduto (@PathVariable("id") Long id) throws Exception {
         return produtoService.ativarProduto(id);
     }
+
+    @GetMapping("/listagemAtivos")
+    public ResponseEntity<Map<String, Object>> listarProdutosAtivos() {
+        return produtoService.listarProdutosAtivos();
+    }
 }

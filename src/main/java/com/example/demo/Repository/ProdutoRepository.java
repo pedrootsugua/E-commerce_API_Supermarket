@@ -15,4 +15,6 @@ public interface ProdutoRepository extends JpaRepository<ProdutoModel, Long> {
     Page<ProdutoModel> buscaPorNome(String nomeProduto, Pageable pageable);
 
     List<ProdutoModel> findByIdIn(List<String> ids);
+
+    List<ProdutoModel> findByAtivo(boolean b);
 }
