@@ -14,7 +14,6 @@ import org.hibernate.validator.constraints.br.CPF;
 @Entity
 @Table(name = "usuario")
 public class UsuarioModel {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +26,9 @@ public class UsuarioModel {
     private String grupo;
     @Column(nullable = false)
     private boolean ativo;
-    @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL)
-    private CredencialModel credencialId;
+//    @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL)
+//    private CredencialModel credencialId;
+
 
     public UsuarioModel(UsuarioCredencialDTO dto){
         this.nome = dto.getNome();
