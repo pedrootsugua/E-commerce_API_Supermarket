@@ -1,28 +1,34 @@
 package com.example.demo.Model;
 
-import com.example.demo.DTO.CadastroClienteDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Email;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter @Setter
-
+@Getter
+@Setter
 @Entity
-@Table(name = "credencial")
-public class CredencialModel {
+@Table(name = "credencial_cliente")
+public class CredencialClienteModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Email
+
     @Column(nullable = false, unique = true)
     private String email;
+
     @JsonIgnore
     @Column(nullable = false)
     private String senha;
+
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel usuario;
+
+    public void setUsuario(ClienteModel usuario) {
+        this.usuario = usuario;
+    }
+
 }
