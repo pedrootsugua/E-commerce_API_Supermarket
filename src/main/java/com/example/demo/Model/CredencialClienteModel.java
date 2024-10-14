@@ -14,21 +14,14 @@ public class CredencialClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false, unique = true)
     private String email;
-
     @JsonIgnore
     @Column(nullable = false)
     private String senha;
 
-
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel usuario;
-
-    public void setUsuario(ClienteModel usuario) {
-        this.usuario = usuario;
-    }
-
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "clienteId")
+    private ClienteModel clienteId;
 }

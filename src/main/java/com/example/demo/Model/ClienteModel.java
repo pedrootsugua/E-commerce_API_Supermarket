@@ -1,12 +1,14 @@
 package com.example.demo.Model;
 
 import com.example.demo.DTO.CadastroClienteDTO;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 @NoArgsConstructor
@@ -19,31 +21,25 @@ public class ClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String nome;
-
-    @Column(nullable = false)
-    private String telefone;
-
     @Column(nullable = false, unique = true)
     private String cpf;
-
-    @Column(nullable = true, name = "dt_nascimento")
+    @Column(nullable = false, name = "dt_nascimento")
     private Date dtNascimento;
+    @Column(nullable = false)
+    private String genero;
+
+    @OneToOne(mappedBy = "clienteId", cascade = CascadeType.ALL)
+    private CredencialClienteModel credencialClienteId;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "clienteId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EnderecoModel> enderecos;
 
     public ClienteModel(CadastroClienteDTO dto) {
         this.nome = dto.getNome();
-        this.telefone = dto.getTelefone();
         this.cpf = dto.getCpf();
         this.dtNascimento = dto.getDtNascimento();
-    }
-    private Date ajustarData(Date data) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-        String dataFormatada = formatter.format(data);
-
-        return formatter.parse(dataFormatada);
     }
 }

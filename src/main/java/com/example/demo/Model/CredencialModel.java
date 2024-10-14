@@ -25,4 +25,9 @@ public class CredencialModel {
     @JsonIgnore
     @Column(nullable = false)
     private String senha;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "usuarioId")
+    private UsuarioModel usuarioId;
 }

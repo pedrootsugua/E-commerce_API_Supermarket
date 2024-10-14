@@ -4,7 +4,6 @@ import com.example.demo.BlobsAzure.BlobStorageService;
 import com.example.demo.DTO.*;
 import com.example.demo.Model.ProdutoModel;
 import com.example.demo.Model.URLImagensModel;
-import com.example.demo.Model.UsuarioModel;
 import com.example.demo.Repository.ProdutoRepository;
 import com.example.demo.Repository.URLImagensRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,14 +88,14 @@ public class ProdutoService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<ProdutoAlterarResponseDTO> buscarProduto(Long id) {
+    public ResponseEntity<AlterarProdutoResponseDTO> buscarProduto(Long id) {
 
         ProdutoModel produtoModel = produtoRepository.findById(id).orElse(null);
         if (produtoModel == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ProdutoAlterarResponseDTO produtoAlterarResponseDTO = new ProdutoAlterarResponseDTO(produtoModel);
-        return new ResponseEntity<>(produtoAlterarResponseDTO, HttpStatus.OK);
+        AlterarProdutoResponseDTO alterarProdutoResponseDTO = new AlterarProdutoResponseDTO(produtoModel);
+        return new ResponseEntity<>(alterarProdutoResponseDTO, HttpStatus.OK);
     }
 
     public ResponseEntity<Map<String, Object>> buscarProdutoPorNome(String nome, int page, int size) {
@@ -124,7 +123,7 @@ public class ProdutoService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<ProdutoAlterarResponseDTO> alterarProduto(ProdutoAlterarRequestDTO dto) throws Exception {
+    public ResponseEntity<AlterarProdutoResponseDTO> alterarProduto(AlterarProdutoRequestDTO dto) throws Exception {
         ProdutoModel produtoSalvo = produtoRepository.findById(dto.getId()).orElseThrow(
                 () -> new RuntimeException("Produto não encontrado!"));
         produtoSalvo.setNomeProduto(dto.getNomeProduto());
@@ -165,7 +164,7 @@ public class ProdutoService {
 
         ProdutoModel produtoAtualizado = produtoRepository.findById(dto.getId()).orElseThrow(
                 () -> new Exception("Produto não encontrado"));
-        ProdutoAlterarResponseDTO produtoAlterado = new ProdutoAlterarResponseDTO(produtoAtualizado);
+        AlterarProdutoResponseDTO produtoAlterado = new AlterarProdutoResponseDTO(produtoAtualizado);
 
         return new ResponseEntity<>(produtoAlterado, HttpStatus.OK);
     }
