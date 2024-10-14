@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ProdutoAlterarResponseDTO {
+public class AlterarProdutoResponseDTO {
     private String nomeProduto;
     private String descricao;
     private double preco;
@@ -24,7 +24,7 @@ public class ProdutoAlterarResponseDTO {
     private String imagemPrincipal;
     private List<String> imagens;
 
-    public ProdutoAlterarResponseDTO(ProdutoModel produtoModel){
+    public AlterarProdutoResponseDTO(ProdutoModel produtoModel){
         this.nomeProduto = produtoModel.getNomeProduto();
         this.descricao = produtoModel.getDescricao();
         this.preco = produtoModel.getPreco();

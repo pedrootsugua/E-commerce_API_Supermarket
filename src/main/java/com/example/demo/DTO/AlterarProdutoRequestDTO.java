@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-public class ProdutoAlterarRequestDTO {
+public class AlterarProdutoRequestDTO {
     private Long id;
     private String nomeProduto;
     private String descricao;
