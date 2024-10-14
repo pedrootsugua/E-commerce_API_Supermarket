@@ -16,7 +16,7 @@ public class CadastroClienteDTO {
     private String nome;
     private String email;
     private String senha;
-    private String telefone;
+    private String genero;
     private String cpf;
     private Date dtNascimento;
     private String cep;
