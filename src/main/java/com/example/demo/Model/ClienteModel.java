@@ -39,6 +39,7 @@ public class ClienteModel {
 
     public ClienteModel(CadastroClienteDTO dto) {
         this.nome = dto.getNome();
+        this.genero = dto.getGenero();
         this.cpf = dto.getCpf();
         this.dtNascimento = dto.getDtNascimento();
     }

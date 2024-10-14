@@ -50,5 +50,6 @@ public class EnderecoModel {
         this.cidade = dto.getCidade();
         this.uf = dto.getUf();
         this.clienteId = cliente;
+        this.entrega = true;
     }
 }
