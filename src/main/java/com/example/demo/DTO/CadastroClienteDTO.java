@@ -26,4 +26,5 @@ public class CadastroClienteDTO {
     private String numero;
     private String cidade;
     private String uf;
+    private Boolean entrega;
 }

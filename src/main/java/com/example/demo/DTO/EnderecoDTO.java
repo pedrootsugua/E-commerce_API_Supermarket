@@ -18,5 +18,5 @@ public class EnderecoDTO {
     private String numero;
     private String cidade;
     private String uf;
-    private Boolean entrega;
+    private String entrega;
 }
