@@ -1,6 +1,5 @@
 package com.example.demo.Model;
 
-import com.example.demo.DTO.CadastroClienteDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

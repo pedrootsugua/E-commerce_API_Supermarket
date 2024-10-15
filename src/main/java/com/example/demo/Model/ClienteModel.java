@@ -3,13 +3,15 @@ package com.example.demo.Model;
 import com.example.demo.DTO.CadastroClienteDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +25,7 @@ public class ClienteModel {
     private Long id;
     @Column(nullable = false)
     private String nome;
+    @CPF
     @Column(nullable = false, unique = true)
     private String cpf;
     @Column(nullable = false, name = "dt_nascimento")
