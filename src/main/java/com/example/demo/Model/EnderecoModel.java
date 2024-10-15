@@ -1,6 +1,6 @@
 package com.example.demo.Model;
 
-import com.example.demo.DTO.CadastroClienteDTO;
+import com.example.demo.DTO.EnderecoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,13 +35,15 @@ public class EnderecoModel {
     private String uf;
     @Column(nullable = false)
     private Boolean entrega;
+    @Column(nullable = false)
+    private Boolean cobranca;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "clienteId")
     private ClienteModel clienteId;
 
-    public EnderecoModel(CadastroClienteDTO dto, ClienteModel cliente) {
+    public EnderecoModel(EnderecoDTO dto) {
         this.cep = dto.getCep();
         this.logradouro = dto.getLogradouro();
         this.complemento = dto.getComplemento();
@@ -49,7 +51,7 @@ public class EnderecoModel {
         this.numero = dto.getNumero();
         this.cidade = dto.getCidade();
         this.uf = dto.getUf();
-        this.clienteId = cliente;
         this.entrega = dto.getEntrega();
+        this.cobranca = dto.getCobranca();
     }
 }

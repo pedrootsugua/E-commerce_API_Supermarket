@@ -3,6 +3,7 @@ package com.example.demo.Service;
 import com.example.demo.DTO.AlterarClienteRequestDTO;
 import com.example.demo.DTO.AlterarClienteResponseDTO;
 import com.example.demo.DTO.CadastroClienteDTO;
+import com.example.demo.DTO.EnderecoDTO;
 import com.example.demo.Model.*;
 import com.example.demo.Repository.ClienteRepository;
 import com.example.demo.Repository.CredencialClienteRepository;
@@ -43,9 +44,12 @@ public class ClienteService {
 
             ClienteModel cliente = new ClienteModel(dto);
             ClienteModel clienteSalvo = clienteRepository.save(cliente);
+            for (EnderecoDTO endereco : dto.getEnderecos()) {
+                EnderecoModel enderecoModel = new EnderecoModel(endereco);
+                enderecoModel.setClienteId(clienteSalvo);
+                enderecoRepository.save(enderecoModel);
+            }
 
-            EnderecoModel endereco = new EnderecoModel(dto, clienteSalvo);
-            enderecoRepository.save(endereco);
 
             CredencialClienteModel credenciaClientelModel = new CredencialClienteModel();
             credenciaClientelModel.setEmail(dto.getEmail());

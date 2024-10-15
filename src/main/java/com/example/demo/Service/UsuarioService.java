@@ -37,6 +37,7 @@ public class UsuarioService {
             CredencialModel credencialModel = new CredencialModel();
             credencialModel.setEmail(dto.getEmail());
             credencialModel.setSenha(passwordService.criptografar(dto.getSenha()));
+            credencialModel.setUsuarioId(usuarioSalvo);
             credencialRepository.save(credencialModel);
             dto.setSenha("");
             return new ResponseEntity<>(dto, HttpStatus.CREATED);
