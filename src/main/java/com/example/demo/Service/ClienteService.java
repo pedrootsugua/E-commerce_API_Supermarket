@@ -126,4 +126,12 @@ public class ClienteService {
         clienteAlteradoDTO.setSenha("");
         return new ResponseEntity<>(clienteAlteradoDTO, HttpStatus.OK);
     }
+
+    public ResponseEntity<CadastroClienteDTO> buscarClientePorId(Long id) {
+        ClienteModel usuario = clienteRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Cliente não encontrado"));
+        CadastroClienteDTO dto = new CadastroClienteDTO(usuario);
+        dto.setSenha("");
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
 }

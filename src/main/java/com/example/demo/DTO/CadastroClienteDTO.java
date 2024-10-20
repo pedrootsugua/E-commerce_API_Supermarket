@@ -1,5 +1,6 @@
 package com.example.demo.DTO;
 
+import com.example.demo.Model.ClienteModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,13 @@ public class CadastroClienteDTO {
     private String cpf;
     private Date dtNascimento;
     List<EnderecoDTO> enderecos;
+
+    public CadastroClienteDTO(ClienteModel clienteModel) {
+        this.nome = clienteModel.getNome();
+        this.email = clienteModel.getCredencialClienteId().getEmail();
+        this.genero = clienteModel.getGenero();
+        this.cpf = clienteModel.getCpf();
+        this.dtNascimento = clienteModel.getDtNascimento();
+        this.enderecos = clienteModel.getEnderecos().stream().map(EnderecoDTO::new).toList();
+    }
 }
