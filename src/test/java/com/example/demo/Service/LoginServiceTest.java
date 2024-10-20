@@ -43,17 +43,17 @@ public class LoginServiceTest {
         credencialDTO.setEmail("test@example.com");
         credencialDTO.setSenha("password");
 
-        CredencialModel credencialModel = new CredencialModel();
-        credencialModel.setEmail("test@example.com");
-        credencialModel.setSenha("hashedPassword");
-
         UsuarioModel usuarioModel = new UsuarioModel();
         usuarioModel.setId(1L);
         usuarioModel.setNome("Test User");
         usuarioModel.setGrupo("Admin");
         usuarioModel.setAtivo(true);
 
-        credencialModel.setUsuarioId(usuarioModel); // Definindo usuarioId
+        CredencialModel credencialModel = new CredencialModel();
+        credencialModel.setId(1L);
+        credencialModel.setEmail("test@example.com");
+        credencialModel.setSenha("hashedPassword");
+        credencialModel.setUsuarioId(usuarioModel);
 
         when(credencialRepository.buscaPorEmail(anyString())).thenReturn(credencialModel);
         when(passwordService.verificarSenha(anyString(), anyString())).thenReturn(true);
