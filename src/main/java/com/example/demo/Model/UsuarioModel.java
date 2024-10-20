@@ -26,9 +26,9 @@ public class UsuarioModel {
     private String grupo;
     @Column(nullable = false)
     private boolean ativo;
+
     @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL)
     private CredencialModel credencialId;
-
 
     public UsuarioModel(UsuarioCredencialDTO dto){
         this.nome = dto.getNome();

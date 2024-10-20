@@ -1,7 +1,6 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DTO.AlterarClienteRequestDTO;
-import com.example.demo.DTO.AlterarClienteResponseDTO;
+import com.example.demo.DTO.AlterarClienteDTO;
 import com.example.demo.DTO.CadastroClienteDTO;
 import com.example.demo.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class ClienteController {
     }
 
     @PutMapping("/alterar")
-    public ResponseEntity<AlterarClienteResponseDTO> alterarCliente(@RequestBody AlterarClienteRequestDTO dto) {
+    public ResponseEntity<AlterarClienteDTO> alterarCliente(@RequestBody AlterarClienteDTO dto) throws ParseException {
         return clienteService.alterarCliente(dto);
     }
 }
