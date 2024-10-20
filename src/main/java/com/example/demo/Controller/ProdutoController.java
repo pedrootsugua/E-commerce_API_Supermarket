@@ -1,10 +1,8 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DTO.ProdutoAlterarRequestDTO;
-import com.example.demo.DTO.ProdutoAlterarResponseDTO;
+import com.example.demo.DTO.AlterarProdutoRequestDTO;
+import com.example.demo.DTO.AlterarProdutoResponseDTO;
 import com.example.demo.DTO.ProdutoDTO;
-import com.example.demo.DTO.UsuarioCredencialDTO;
-import com.example.demo.Model.UsuarioModel;
 import com.example.demo.Service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +38,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/buscaID")
-    public ResponseEntity<ProdutoAlterarResponseDTO> buscarProdutoPorId(
+    public ResponseEntity<AlterarProdutoResponseDTO> buscarProdutoPorId(
             @RequestParam("id") Long id) {
         return produtoService.buscarProduto(id);
     }
@@ -54,8 +52,8 @@ public class ProdutoController {
     }
 
     @PutMapping("/alterar")
-    public ResponseEntity<ProdutoAlterarResponseDTO> alterarProduto(
-            @RequestPart ProdutoAlterarRequestDTO produto,
+    public ResponseEntity<AlterarProdutoResponseDTO> alterarProduto(
+            @RequestPart AlterarProdutoRequestDTO produto,
             @RequestPart(value = "imagemPrincipal", required = false) MultipartFile imagemPrincipal,
             @RequestPart(value = "imagensNovas", required = false) List<MultipartFile> imagensNovas) throws Exception {
         produto.setImagemPrincipal(imagemPrincipal);

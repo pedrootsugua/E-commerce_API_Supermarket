@@ -39,7 +39,6 @@ public class UsuarioService {
             credencialModel.setSenha(passwordService.criptografar(dto.getSenha()));
             credencialModel.setUsuarioId(usuarioSalvo);
             credencialRepository.save(credencialModel);
-
             dto.setSenha("");
             return new ResponseEntity<>(dto, HttpStatus.CREATED);
         } catch (Exception e) {

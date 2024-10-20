@@ -2,23 +2,18 @@ package com.example.demo.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Email;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter @Setter
-
+@Getter
+@Setter
 @Entity
-@Table(name = "credencial")
-public class CredencialModel {
+@Table(name = "credencial_cliente")
+public class CredencialClienteModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Email
     @Column(nullable = false, unique = true)
     private String email;
     @JsonIgnore
@@ -27,6 +22,6 @@ public class CredencialModel {
 
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "usuarioId")
-    private UsuarioModel usuarioId;
+    @JoinColumn(name = "clienteId")
+    private ClienteModel clienteId;
 }
