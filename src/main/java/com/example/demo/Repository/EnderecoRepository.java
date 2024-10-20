@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface EnderecoRepository extends JpaRepository<EnderecoModel, Long> {
     @Query("SELECT e FROM EnderecoModel e WHERE e.cep = ?1")
     EnderecoModel buscaPorCep(String cep);
+
+    EnderecoModel findByEntrega(boolean entrega);
 }
