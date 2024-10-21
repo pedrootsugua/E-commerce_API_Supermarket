@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.DTO.AlterarClienteDTO;
 import com.example.demo.DTO.CadastroClienteDTO;
+import com.example.demo.Model.UsuarioModel;
 import com.example.demo.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,10 @@ public class ClienteController {
     @PutMapping("/alterar")
     public ResponseEntity<AlterarClienteDTO> alterarCliente(@RequestBody AlterarClienteDTO dto) throws ParseException {
         return clienteService.alterarCliente(dto);
+    }
+
+    @GetMapping("/consultar/{id}")
+    public ResponseEntity<CadastroClienteDTO> buscarUsuarioPorId(@PathVariable Long id) {
+        return clienteService.buscarClientePorId(id);
     }
 }

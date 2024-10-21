@@ -87,7 +87,7 @@ public class ClienteService {
         boolean enderecoEntregaTrocado = false;
         EnderecoModel antigoEnderecoPadrao;
         if (dto.getIdEnderecoPadrao() != null) {
-            antigoEnderecoPadrao = enderecoRepository.findByEntrega(true);
+            antigoEnderecoPadrao = enderecoRepository.findByEntregaAndClienteId(true, clienteSalvo);
             EnderecoModel novoEnderecoPadrao = enderecoRepository.findById(dto.getIdEnderecoPadrao()).orElseThrow(
                     () -> new RuntimeException("Endereço não encontrado!"));
             if (novoEnderecoPadrao != null && antigoEnderecoPadrao != null) {
@@ -107,7 +107,7 @@ public class ClienteService {
                         if (enderecoEntregaTrocado){
                             return ResponseEntity.status(HttpStatus.CONFLICT).build();
                         }
-                        antigoEnderecoPadrao = enderecoRepository.findByEntrega(true);
+                        antigoEnderecoPadrao = enderecoRepository.findByEntregaAndClienteId(true, clienteSalvo);
                         antigoEnderecoPadrao.setEntrega(false);
                         enderecoRepository.save(antigoEnderecoPadrao);
                         enderecoEntregaTrocado = true;
@@ -125,5 +125,13 @@ public class ClienteService {
         AlterarClienteDTO clienteAlteradoDTO = new AlterarClienteDTO(clienteAlterado);
         clienteAlteradoDTO.setSenha("");
         return new ResponseEntity<>(clienteAlteradoDTO, HttpStatus.OK);
+    }
+
+    public ResponseEntity<CadastroClienteDTO> buscarClientePorId(Long id) {
+        ClienteModel usuario = clienteRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Cliente não encontrado"));
+        CadastroClienteDTO dto = new CadastroClienteDTO(usuario);
+        dto.setSenha("");
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

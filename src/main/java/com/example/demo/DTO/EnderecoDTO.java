@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EnderecoDTO {
+    private Long id;
     private String cep;
     private String logradouro;
     private String complemento;
@@ -23,6 +24,7 @@ public class EnderecoDTO {
     private Boolean cobranca;
 
     public EnderecoDTO(EnderecoModel endereco) {
+        this.id = endereco.getId();
         this.cep = endereco.getCep();
         this.logradouro = endereco.getLogradouro();
         this.complemento = endereco.getComplemento();
